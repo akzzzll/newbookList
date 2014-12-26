@@ -1,0 +1,147 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>first canvas</title>
+  <script type="text/javascript">
+
+        window.addEventListener("load", eventWindowLoaded, false);
+
+        var Debugger = function () { };
+
+        Debugger.log = function (message) {
+            try {
+                console.log(message);
+            } catch (exception) {
+                return;
+            }
+        };
+
+        function eventWindowLoaded() {
+
+            canvasApp();
+        }
+
+        function canvasApp() {
+
+            var guesses = 0;
+            var message = "猜字母从a到z";
+            var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                 "k", "l", "m", "n", "o", "p", "q", "r", "s",
+                 "t", "u", "v", "w", "x", "y", "z"];
+
+            var today = new Date().toDateString();
+            var letterToGuess = "";
+            var higherOrLower = "";
+            var lettersGuessed;
+            var gameOver = false;
+
+            var theCanvas = document.getElementById("canvasOne");
+            var context = theCanvas.getContext("2d");
+
+            Debugger.log("Drawing Canvas");
+
+
+            function initGame() {
+                var letterIndex = Math.floor(Math.random() * letters.length);
+                letterToGuess = letters[letterIndex];
+
+                guesses = 0;
+                lettersGuessed = [];
+                gameOver = false;
+                window.addEventListener("keydown", eventKeyPressed, true);
+                drawScreen();
+
+
+                function eventKeyPressed(e) {
+                    if (!gameOver) {
+                        var letterPressed = String.fromCharCode(e.keyCode);
+                        letterPressed = letterPressed.toLowerCase();
+                        guesses++;
+                        lettersGuessed.push(letterPressed);
+
+                        if (letterPressed == letterToGuess) {
+                            gameOver = true;
+                        }
+                        else {
+                            var left = letters.indexOf(letterPressed);
+                            var right = letters.indexOf(letterToGuess);
+
+                            if (left < 0) {
+                                higherOrLower="输入的字母不存在";
+                            }
+                            else if (right > left) {
+                                higherOrLower = "猜的字母太小了";
+                            }
+                            else {
+                                higherOrLower = "猜的字母太大了";
+                            }
+                        }
+
+                        drawScreen();
+
+                    }
+                    else {
+                        alert("程序结束");
+                    }
+
+
+                }
+
+
+                function drawScreen() {
+                    context.fillStyle = "#ffffaa";
+                    context.fillRect(0, 0, 500, 300);
+
+                    context.strokeStyle = "#000000";
+                    context.strokeRect(5, 5, 490, 290);
+
+                    context.textBaseLine = "top";
+
+                    context.fillStyle = "#000000";
+                    context.font = "10px Sans-Serif";
+                    context.fillText(today, 10, 30);
+
+                    context.fillStyle = "#ff0000";
+                    context.font = "14px Sans-Serif";
+                    context.fillText(message, 10, 50);
+
+
+                    context.fillStyle = "#109910";
+                    context.font = "16px Sans-Serif";
+                    context.fillText('猜测次数：' + guesses, 250, 50);
+
+                    context.fillStyle = "#000000";
+                    context.font = "16px Sans-Serif";
+                    context.fillText('提示:' + higherOrLower, 250, 70);
+
+                    context.fillStyle = "#ff0000";
+                    context.font = "16px Sans-Serif";
+                    context.fillText('猜过的字母：' + lettersGuessed.toString(), 10, 260);
+
+                    if (gameOver) {
+                        context.fillStyle = "#ff0000";
+                        context.font = "40px Sans-Serif";
+                        context.fillText("你猜对了。 ", 150, 150);
+                    }
+                }
+            }
+
+
+            initGame();
+        }
+
+     
+    </script>
+</head>
+<body>
+	<div>
+	请按键输入字母开始游戏。结束后，请刷新页面重新开始。
+	</div>
+    <div style="position: absolute; top: 50px; left: 50px; font-family: Arial">
+        <canvas id="canvasOne" width="500" height="300">
+        Your browser does not support HTML5.
+        </canvas>
+    </div>
+</body>
+</html>
