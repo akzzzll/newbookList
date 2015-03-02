@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>14</title>
+    <script type="text/javascript">
+
+        window.addEventListener('load', eventWindowLoaded, false);
+
+        function eventWindowLoaded() {
+            canvasApp("内容", 50);
+        }
+
+        function canvasApp(message, len) {
+            var thecanvas = document.getElementById("canvas");
+            var context = thecanvas.getContext("2d");
+
+            draw(context, message, len);
+
+
+        }
+
+
+        function draw(context, message, len) {
+            context.fillStyle = "red";
+            context.shadowOffsetX = 10;
+            context.shadowOffsetY = 10;
+            context.shadowColor = "black";
+            context.shadowBlur = 4;
+            context.fillRect(10, 10, 300, 300);
+
+            context.font = "50px serif";
+            context.fillStyle = "#ffffff";
+            context.fillText(message, 50, 100);
+
+
+            context.font = "50px serif";
+            context.strokeStyle = "#ffffff";
+            context.strokeText(message, 50, 200, len);
+
+
+        }
+
+        function Button1_onclick() {
+            canvasApp("测试", 150);
+        }
+
+    </script>
+</head>
+<body>
+    <div style="position: absolute; top: 50px; left: 50px;">
+        <canvas id="canvas" width="500" height="500">
+        </canvas>
+    </div>
+    <div>
+        <input id="Button1" type="button" value="button" onclick="return Button1_onclick()" />
+    </div>
+</body>
+</html>

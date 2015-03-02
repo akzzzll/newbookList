@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>15</title>
+    <script src="jscolor.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var message = "请输入信息";
+        var op = "fill";
+        var fontsize = "50";
+        var fontweight = "normal";
+        var fontStyle = "normal";
+        var fontface = "serif";
+        var fillcolor = "#FF0000";
+        var strokecolor = "#000000";
+
+        var shadowOffsetX = 0;
+        var shadowOffsetY = 0;
+        var shadowColor = "#FFFFFF";
+        var shadowBlur = 2;
+        var globalAlpha = 1;
+
+        function canvasApp() {
+
+            var thecanvas = document.getElementById("canvas");
+            var context = thecanvas.getContext("2d");
+
+
+            var metric = context.measureText(message);
+
+            var textWidth = metric.width;
+            var xPosition = (thecanvas.width / 2) - (textWidth / 2);
+            var yPosition = (thecanvas.height / 2);
+
+            context.globalAlpha = 1;
+            context.fillStyle = "#ffffff";
+            context.fillRect(0, 0, thecanvas.width, thecanvas.height);
+
+            context.font = fontweight + " " + fontStyle + " " + fontsize + "px " + fontface;
+            context.globalAlpha = globalAlpha;
+            //选择条件
+            switch (op) {
+                case "fill":
+                    context.fillStyle = fillcolor;
+                    context.fillText(message, xPosition, yPosition);
+                    break;
+                case "stroke":
+                    context.strokeStyle = strokecolor;
+                    context.strokeText(message, xPosition, yPosition);
+                    break;
+                default:
+                    context.fillStyle = fillcolor;
+                    context.fillText(message, xPosition, yPosition);
+                    context.strokeStyle = strokecolor;
+                    context.strokeText(message, xPosition, yPosition);
+                    break;
+            }
+
+            context.shadowColor = shadowColor;
+            context.shadowOffsetX = shadowOffsetX;
+            context.shadowOffsetY = shadowOffsetY;
+            context.shadowBlur = shadowBlur;
+        }
+
+
+
+        function textBoxChanged(e) {
+            message = e.value;
+            canvasApp();
+        }
+
+
+        function fillorstrokeChange(e) {
+            op = e.value;
+            canvasApp();
+        }
+
+        function textSizeChange(e) {
+
+            //       alert(e.value);
+            fontsize = e.value;
+            canvasApp();
+        }
+        function textcolorchange(e) {
+            fillcolor = "#" + e.value;
+            canvasApp();
+        }
+
+        function textFont_onclick(e) {
+            fontface = e.value;
+            canvasApp();
+        }
+
+        function fontweight_onclick(e) {
+            fontweight = e.value;
+            canvasApp();
+        }
+
+        function fontstyle_onclick(e) {
+            fontStyle = e.value;
+            canvasApp();
+        }
+
+        function strokecolorchange(e) {
+            strokecolor = "#" + e.value;
+            canvasApp();
+        }
+
+
+
+        function textalpha_onchange(e) {
+            globalAlpha = e.value;
+            canvasApp();
+        }
+
+
+        function textshadowx_onchange(e) {
+            shadowOffsetX = e.value;
+            canvasApp();
+        }
+
+
+
+    </script>
+</head>
+<body>
+    <div style="top: 50px; left: 50px; width: 500; height: 300;">
+        <canvas id="canvas" width="400" height="300">
+        </canvas>
+    </div>
+    <div style="padding: 50 0 0 0;">
+        基础部分：
+        <br />
+        text:
+        <input id="textbox1" placeholder="请输入信息" onkeyup="textBoxChanged(this)" />
+        <br />
+        Fill Or Stroke:
+        <select id="fillorstroke" onchange="fillorstrokeChange(this)">
+            <option value="fill">fill</option>
+            <option value="stroke">stroke</option>
+            <option value="both">both</option>
+        </select>
+        <br />
+        <div style="width: 300px;">
+            Text Size:
+            <input type="range" id="textSize" min="0" max="200" step="1" value="50" onchange="textSizeChange(this)" />
+        </div>
+        Font Style:
+        <select id="fontstyle" onclick="return fontstyle_onclick(this)">
+            <option value="normal">normal</option>
+            <option value="italic">italic</option>
+            <option value="oblique">oblique</option>
+        </select>
+        <br />
+        Font Weight:
+        <select id="fontweight" onclick="return fontweight_onclick(this)">
+            <option value="normal">normal </option>
+            <option value="bold">bold </option>
+            <option value="bolder">bolder </option>
+            <option value="lighter">lighter </option>
+        </select>
+        <br />
+        Text Font：
+        <select id="textFont" onchange="" onclick="return textFont_onclick(this)">
+            <option value="serif">serif</option>
+            <option value="宋体">宋体</option>
+        </select>
+        <br />
+        Text Color:
+        <input id="textcolor" class="color" type="text" onchange="textcolorchange(this)" />
+        <br />
+        Stroke Color：
+        <input id="strokecolor" class="color" type="text" onchange="strokecolorchange(this)" />
+        <br />
+    </div>
+    <br />
+    <div style="padding: 50 0 0 0;">
+        阴影部分：
+        <br />
+        Alpha：<input id="textalpha" type="range" max="1" min="0.1" value="1" onchange="textalpha_onchange(this)" />
+        <br />
+        Shadow X：
+        <input id="textshadowx" type="range" max="50" min="-50" value="0" onchange="textshadowx_onchange(this)" />
+        <br />
+        Shadow Y:
+        <input id="textshadowy" type="range" max="50" min="-50" value="0" onchange="textshadowy_onchange(this)" />
+        <br />
+
+    </div>
+</body>
+</html>

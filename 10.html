@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ch2BaseFile</title>
+
+<script type="text/javascript">
+ window.addEventListener('load',eventWindowLoaded,false);
+ 
+ function eventWindowLoaded()
+ {
+	 	canvasApp();
+}
+	 
+ function canvasApp()
+ {
+	 var theCanvas=document.getElementById("canvas");
+	 var context=theCanvas.getContext("2d");
+	 
+	 
+	  var theCanvas1=document.getElementById("canvas1");
+	 var context1=theCanvas1.getContext("2d");
+	 
+	drawScreen();
+	draw1();
+	draw2();
+	
+	
+	
+	function drawScreen()
+	{
+		context.fillStyle='#aaaaaa';
+		context.fillRect(0,0,200,200);
+		context.fillStyle='#000000';
+		context.font='20px 宋体';
+		context.textBaseline='top';
+		context.fillText("Canvas!",0,0);	
+		
+	
+		
+	}	
+	
+	//内方块
+	function draw1()
+	{
+		context1.fillStyle='#000000';
+		context1.strokeStyle="#ff00ff";
+		context1.lineWidth=2;
+		context1.fillRect(10,10,40,40);
+		context1.strokeRect(0,0,60,60);
+		context1.clearRect(20,20,20,20);
+	}
+	
+	function draw2()
+	{
+		context.moveTo(0,0);
+		context.quadraticCurveTo(100,25,0,50);	
+	}
+		 
+ }
+ 
+</script>
+</head>
+
+<body>
+
+
+<div style="position:absolute;top:50px;left:50px;">
+<canvas id="canvas" width="500" height="500">
+your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+<div style="position:absolute;top:350px;left:50px;">
+<canvas id="canvas1" width="500" height="500">
+your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+</body>
+</html>

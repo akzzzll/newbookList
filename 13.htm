@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>13渐变</title>
+    <script type="text/javascript">
+        window.addEventListener('load', eventWindowLoaded, false);
+
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+
+
+        function canvasApp() {
+
+            var thecanvas = document.getElementById("canvas");
+            var context = thecanvas.getContext("2d");
+
+            draw();
+
+            function draw() {
+
+                var gr = context.createRadialGradient(50, 50, 25, 100, 100, 100);
+
+                gr.addColorStop(0, 'rgb(255,0,0)');
+                gr.addColorStop(0.5, 'rgb(0,255,0)');
+                gr.addColorStop(1, 'rgb(255,0,0)');
+
+                context.fillStyle = gr;
+                context.fillRect(0, 0, 200, 200);
+
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+    <div style="position: absolute; top: 50px; left: 50px;">
+        <canvas id="canvas" width="500" height="500">
+        </canvas>
+    </div>
+</body>
+</html>
